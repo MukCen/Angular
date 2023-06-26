@@ -1,0 +1,19 @@
+<h2>{{ isEdit ? 'Edit User' : 'Add User' }}</h2>
+
+<form (submit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+  </div>
+
+  <div>
+    <button type="submit">{{ isEdit ? 'Save Changes' : 'Add User' }}</button>
+      <!-- <button (click)="cancel($event)">Cancel</button> -->
+      <button (click)="cancel()">Cancel</button>
+  </div>
+</form>
