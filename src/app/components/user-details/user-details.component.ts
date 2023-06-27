@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -23,23 +24,66 @@ export class UserDetailsComponent implements OnInit {
     this.loadUser();
   }
 
-loadUser(): void {
+  loadUser(): void {
   const idParam = this.route.snapshot.paramMap.get('id');
   const userId = idParam ? +idParam : 0;
 
   if (userId === 0) {
     console.log('userId = 0');
   } else {
-    this.apiService.getUserById(userId).subscribe(
-      user => {
+    this.apiService.getUserById(userId).subscribe({
+      next: (user: IUser) => {
         this.user = user;
       },
-      error => {
+      error: (error: any) => {
         console.log('Помилка при отриманні користувача:', error);
         // Додайте необхідну обробку помилки тут
       }
-    );
+    });
   }
 }
 
-}
+  // loadUser(): void {
+  //   const idParam = this.route.snapshot.paramMap.get('id');
+  //   const userId = idParam ? +idParam : 0;
+
+  //   if (userId === 0) {
+  //     console.log('userId = 0');
+  //   } else {
+  //     this.apiService.getUserById(userId).subscribe(
+  //       user => {
+  //         this.user = user;
+  //       },
+  //       error => {
+  //         console.log('Помилка при отриманні користувача:', error);
+  //         // Додайте необхідну обробку помилки тут
+  //       }
+  //     );
+  //   }
+  // }
+
+  }
+
+  //  loadUser(): void {
+  //   const idParam = this.route.snapshot.paramMap.get('id');
+  //   const userId = idParam ? +idParam : 0;
+
+  //   if (userId === 0) {
+  //     console.log('userId = 0');
+  //   } else {
+  //     const observer: Observable<IUser> = {
+  //       next: (user: IUser) => {
+  //         this.user = user;
+  //       },
+  //       error: (error: any) => {
+  //         console.log('Помилка при отриманні користувача:', error);
+  //         // Додайте необхідну обробку помилки тут
+  //       },
+  //       complete: () => {
+  //         // Обробка завершення
+  //       }
+  //     };
+
+  //     this.apiService.getUserById(userId).subscribe(observer);
+  //   }
+  // }
